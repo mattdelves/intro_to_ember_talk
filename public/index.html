@@ -1,0 +1,58 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Intro to Ember.js</title><link rel="stylesheet" type="text/css" href="bower_components/prism/prism-tomorrow.css"><link rel="stylesheet" type="text/css" href="styles/main.css"></head><body><article><section><img src="images/emberjs-logo.png"></section><section><h2>1.0.0 (released)</h2></section><section><h2>What is it?</h2></section><section><h2>A framework for creating <em>ambitious</em> web applications</h2></section><section><h2>Do we need another framework?</h2></section><section><h2>Yes</h2></section><section><h2>Client side</h2></section><section><h2>Templates</h2><code class="language-javascript"><pre>&lt;li {{bindAttr class=&quot;isVenues:active&quot;}}&gt;{{#linkTo 'venues'}}Venues{{/linkTo}}&lt;/li&gt;
+&lt;li {{bindAttr class=&quot;isBands:active&quot;}}&gt;{{#linkTo 'bands'}}Bands{{/linkTo}}&lt;/li&gt;
+&lt;li {{bindAttr class=&quot;isGigs:active&quot;}}&gt;{{#linkTo 'gigs'}}Gigs{{/linkTo}}&lt;/li&gt;
+&lt;li {{bindAttr class=&quot;isUsers:active&quot;}}&gt;{{#linkTo 'users'}}Users{{/linkTo}}&lt;/li&gt;
+</pre></code></section><section><h2>Routes</h2><code class="language-javascript"><pre>Secondline.Router.map (match)-&gt;
+  @resource 'venues', -&gt;
+    @route 'show',
+    path: '/:venue_id'
+    </pre></code></section><section><h2>Models</h2><code class="language-javascript"><pre>Secondline.Venue = DS.Model.extend({
+  name: DS.attr('string'),
+  address: DS.attr('string'),
+  website: DS.attr('string'),
+  location: DS.attr('string')
+});
+</pre></code></section><section><h2>Data access</h2><code class="language-javascript"><pre>DS.RESTAdapter.reopen
+  namespace: &quot;api/v1&quot;
+Secondline.Store = DS.Store.extend
+  adapter: DS.RESTAdapter.create()
+  </pre></code></section><section><h2>Controllers</h2><code class="language-javascript"><pre>App.SongsController = Ember.ArrayController.extend({
+  longSongCount: function() {
+    var longSongs = this.filter(function(song) {
+      return song.get('duration') &gt; 30;
+    });
+    return longSongs.get('length');
+  }.property('@each.duration')
+});
+</pre></code></section><section><h2>Testing</h2><code class="language-javascript"><pre>test(&quot;creating a post displays the new post&quot;, function() {
+  visit(&quot;/posts/new&quot;)
+  .fillIn(&quot;.post-title&quot;, &quot;A new post&quot;)
+  .fillIn(&quot;.post-author&quot;, &quot;John Doe&quot;)
+  .click(&quot;button.create&quot;)
+  .then(function() {
+    ok(find(&quot;h1:contains('A new post')&quot;).length, &quot;The post's title should display&quot;);
+    ok(find(&quot;a[rel=author]:contains('John Doe')&quot;).length, &quot;A link to the author should display&quot;);
+  });
+});
+</pre></code></section><section><h2>Talking to your rails app</h2></section><section><h2>Bower.io</h2></section><section><h2>Getting the components</h2><code class="language-bash"><pre>brew install node
+npm install -g bower
+</pre></code></section><section><h2>.bowerrc</h2><code class="language-json"><pre>{
+  &quot;directory&quot; : &quot;vendor/assets/components&quot;
+}
+</pre></code></section><section><h2>Setup</h2><code class="language-bash"><pre>bower init
+</pre></code></section><section><h2>Install Ember</h2><code class="language-bash"><pre>bower install --save ember
+</pre></code></section><section><h2>application.js</h2><code class="language-javascript"><pre>//= require handlebars/handlebars
+//= require ember/ember
+</pre></code></section><section><h2>Gemfile</h2><code class="language-ruby"><pre>gem 'handlebars_assets'
+</pre></code></section><section><h2>JSON serializers</h2><code class="language-ruby"><pre>gem 'handlebars_assets'
+</pre></code></section><section><h2>Serializers</h2><code class="language-ruby"><pre>class VenueSerializer &lt; ActiveModel::Serializer
+  attributes :id, :name, :address, :website, :location, :longitude, :latitude
+end
+</pre></code></section><section><h2>Test all the things!</h2></section><section><h2>qunit</h2><code class="language-ruby"><pre>gem 'qunit-rails'
+</pre></code></section><section><h2>test_helper.js</h2><code class="language-javascript"><pre>Secondline.rootElement = '#ember-testing';
+Secondline.setupForTesting();
+Secondline.injectTestHelpers();
+function exists(selector) {
+  return !!find(selector).length;
+}
+</pre></code></section><section><h2>Build awesome things!</h2></section></article><script src="bower_components/bespoke.js/dist/bespoke.min.js"></script><script src="bower_components/bespoke-bullets/dist/bespoke-bullets.min.js"></script><script src="bower_components/bespoke-hash/dist/bespoke-hash.min.js"></script><script src="bower_components/bespoke-state/dist/bespoke-state.min.js"></script><script src="bower_components/prism/prism.js"></script><script src="scripts/main.js"></script></body></html>

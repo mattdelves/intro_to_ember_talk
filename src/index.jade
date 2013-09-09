@@ -1,0 +1,192 @@
+!!! 5
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    title Intro to Ember.js
+
+    //- Check out 'src/bower_components/prism/' for available themes
+    link(rel='stylesheet', type='text/css', href='bower_components/prism/prism-tomorrow.css')
+
+    link(rel='stylesheet', type='text/css', href='styles/main.css')
+
+  body
+
+    article
+
+      section
+        img(src='images/emberjs-logo.png')
+
+      section
+        h2 1.0.0 (released)
+
+      section
+        h2 What is it?
+
+      section
+        h2 A framework for creating <em>ambitious</em> web applications
+
+      section
+        h2 Do we need another framework?
+
+      section
+        h2 Yes
+
+      section
+        h2 Client side
+
+      section
+        h2 Templates
+        code.language-javascript
+          pre.
+            <li {{bindAttr class="isVenues:active"}}>{{#linkTo 'venues'}}Venues{{/linkTo}}</li>
+            <li {{bindAttr class="isBands:active"}}>{{#linkTo 'bands'}}Bands{{/linkTo}}</li>
+            <li {{bindAttr class="isGigs:active"}}>{{#linkTo 'gigs'}}Gigs{{/linkTo}}</li>
+            <li {{bindAttr class="isUsers:active"}}>{{#linkTo 'users'}}Users{{/linkTo}}</li>
+
+      section
+        h2 Routes
+        code.language-javascript
+          pre.
+            Secondline.Router.map (match)->
+              @resource 'venues', ->
+                @route 'show',
+                path: '/:venue_id'
+
+      section
+        h2 Models
+        code.language-javascript
+          pre.
+            Secondline.Venue = DS.Model.extend({
+              name: DS.attr('string'),
+              address: DS.attr('string'),
+              website: DS.attr('string'),
+              location: DS.attr('string')
+            });
+
+      section
+        h2 Data access
+        code.language-javascript
+          pre.
+            DS.RESTAdapter.reopen
+              namespace: "api/v1"
+            Secondline.Store = DS.Store.extend
+              adapter: DS.RESTAdapter.create()
+
+      section
+        h2 Controllers
+        code.language-javascript
+          pre.
+            App.SongsController = Ember.ArrayController.extend({
+              longSongCount: function() {
+                var longSongs = this.filter(function(song) {
+                  return song.get('duration') > 30;
+                });
+                return longSongs.get('length');
+              }.property('@each.duration')
+            });
+
+      section
+        h2 Testing
+        code.language-javascript
+          pre.
+            test("creating a post displays the new post", function() {
+              visit("/posts/new")
+              .fillIn(".post-title", "A new post")
+              .fillIn(".post-author", "John Doe")
+              .click("button.create")
+              .then(function() {
+                ok(find("h1:contains('A new post')").length, "The post's title should display");
+                ok(find("a[rel=author]:contains('John Doe')").length, "A link to the author should display");
+              });
+            });
+
+      section
+        h2 Talking to your rails app
+
+      section
+        h2 Bower.io
+
+      section
+        h2 Getting the components
+        code.language-bash
+          pre.
+            brew install node
+            npm install -g bower
+
+      section
+        h2 .bowerrc
+        code.language-json
+          pre.
+            {
+              "directory" : "vendor/assets/components"
+            }
+
+      section
+        h2 Setup
+        code.language-bash
+          pre.
+            bower init
+
+      section
+        h2 Install Ember
+        code.language-bash
+          pre.
+            bower install --save ember
+
+      section
+        h2 application.js
+        code.language-javascript
+          pre.
+            //= require handlebars/handlebars
+            //= require ember/ember
+
+      section
+        h2 Gemfile
+        code.language-ruby
+          pre.
+            gem 'handlebars_assets'
+
+      section
+        h2 JSON serializers
+        code.language-ruby
+          pre.
+            gem 'handlebars_assets'
+
+      section
+        h2 Serializers
+        code.language-ruby
+          pre.
+            class VenueSerializer < ActiveModel::Serializer
+              attributes :id, :name, :address, :website, :location, :longitude, :latitude
+            end
+
+      section
+        h2 Test all the things!
+
+      section
+        h2 qunit
+        code.language-ruby
+          pre.
+            gem 'qunit-rails'
+
+      section
+        h2 test_helper.js
+        code.language-javascript
+          pre.
+            Secondline.rootElement = '#ember-testing';
+            Secondline.setupForTesting();
+            Secondline.injectTestHelpers();
+            function exists(selector) {
+              return !!find(selector).length;
+            }
+
+      section
+        h2 Build awesome things!
+
+    script(src='bower_components/bespoke.js/dist/bespoke.min.js')
+    script(src='bower_components/bespoke-bullets/dist/bespoke-bullets.min.js')
+    script(src='bower_components/bespoke-hash/dist/bespoke-hash.min.js')
+    script(src='bower_components/bespoke-state/dist/bespoke-state.min.js')
+    script(src='bower_components/prism/prism.js')
+    script(src='scripts/main.js')
