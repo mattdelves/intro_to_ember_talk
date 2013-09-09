@@ -44,7 +44,7 @@ npm install -g bower
 </pre></code></section><section><h2>application.js</h2><code class="language-javascript"><pre>//= require handlebars/handlebars
 //= require ember/ember
 </pre></code></section><section><h2>Gemfile</h2><code class="language-ruby"><pre>gem 'handlebars_assets'
-</pre></code></section><section><h2>JSON serializers</h2><code class="language-ruby"><pre>gem 'handlebars_assets'
+</pre></code></section><section><h2>JSON serializers</h2><code class="language-ruby"><pre>gem 'active_model_serializers'
 </pre></code></section><section><h2>Serializers</h2><code class="language-ruby"><pre>class VenueSerializer &lt; ActiveModel::Serializer
   attributes :id, :name, :address, :website, :location, :longitude, :latitude
 end
@@ -55,4 +55,7 @@ Secondline.injectTestHelpers();
 function exists(selector) {
   return !!find(selector).length;
 }
-</pre></code></section><section><h2>Build awesome things!</h2></section></article><script src="bower_components/bespoke.js/dist/bespoke.min.js"></script><script src="bower_components/bespoke-bullets/dist/bespoke-bullets.min.js"></script><script src="bower_components/bespoke-hash/dist/bespoke-hash.min.js"></script><script src="bower_components/bespoke-state/dist/bespoke-state.min.js"></script><script src="bower_components/prism/prism.js"></script><script src="scripts/main.js"></script></body></html>
+</pre></code></section><section><h2>run the test</h2><code class="language-javascript"><pre>visit(&quot;/qunit&quot;).then(function() {
+  ok(exists(*), &quot;Found tests!&quot;);
+});
+</pre></code></section><section><h2>Build awesome things!</h2></section><section><h2>@mattdelves</h2></section><section><h3>http://github.com/mattdelves/intro_to_ember_talk</h3></section></article><script src="bower_components/bespoke.js/dist/bespoke.min.js"></script><script src="bower_components/bespoke-bullets/dist/bespoke-bullets.min.js"></script><script src="bower_components/bespoke-hash/dist/bespoke-hash.min.js"></script><script src="bower_components/bespoke-state/dist/bespoke-state.min.js"></script><script src="bower_components/prism/prism.js"></script><script src="scripts/main.js"></script></body></html>
